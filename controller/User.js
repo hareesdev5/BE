@@ -63,6 +63,7 @@ const login = async (req, res) => {
 const forgotPassword = async (req, res) => {
   try {
     let user = await userDataModel.findOne({ email: req.body.email });
+    // console.log(user)
     if (user) {
       let sender = nodeMail.createTransport({
         service: "gmail",
@@ -72,7 +73,7 @@ const forgotPassword = async (req, res) => {
         },
       });
       let token = `${process.env.FE_URL}/reset/${user._id}`;
-      // console.log(token);
+      // console.log(process.env.FE_URL);
       let composeEmail = {
         from: process.env.EMAIL,
         to: user.email,
